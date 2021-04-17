@@ -5,9 +5,12 @@ import java.util.List;
 import org.igorpdev.apienderecos.model.Endereco;
 import org.igorpdev.apienderecos.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +21,11 @@ public class EnderecoController {
     
     @Autowired
     private EnderecoRepository repository;
+
+    @PostMapping("/cadastro")
+	public ResponseEntity<Endereco> post (@RequestBody Endereco endereco) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(endereco));
+	}
 
     @GetMapping
     public ResponseEntity<List<Endereco>> getAll() {

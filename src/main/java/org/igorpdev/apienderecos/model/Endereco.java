@@ -12,109 +12,108 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "tb_enderecos")
+@Table(name = "tb_endereco")
 public class Endereco {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String idEndereco;
 
-    @NotNull
-    private String logradouro;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long idEndereco;
+	
+	@NotNull
+	private String logradouro;
+	
+	@NotNull
+	private int numero;
+	
+	@NotNull
+	private String complemento;
+	
+	@NotNull
+	private String bairro;
+	
+	@NotNull
+	private String cidade;
+	
+	@NotNull
+	private String estado;
+	
+	@NotNull
+	@JsonFormat(pattern = "00000-000")
+	private String cep;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("usuario")
+	private Usuario usuario;
 
-    @NotNull
-    private String numero;
+	public long getIdEndereco() {
+		return idEndereco;
+	}
 
-    @NotNull
-    private String complemento;
+	public void setIdEndereco(long id) {
+		this.idEndereco = id;
+	}
 
-    @NotNull
-    private String bairro;
+	public String getLogradouro() {
+		return logradouro;
+	}
 
-    @NotNull
-    private String cidade;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
 
-    @NotNull
-    private String estado;
+	public int getNumero() {
+		return numero;
+	}
 
-    @NotNull
-    @JsonFormat(pattern="nnnnn-ddd")
-    private String cep;
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
 
-    @ManyToOne
-    @JsonIgnoreProperties("endereco")
-    private Usuario usuario;
+	public String getComplemento() {
+		return complemento;
+	}
 
-    public String getIdEndereco() {
-        return this.idEndereco;
-    }
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
 
-    public void setIdEndereco(String idEndereco) {
-        this.idEndereco = idEndereco;
-    }
+	public String getBairro() {
+		return bairro;
+	}
 
-    public String getLogradouro() {
-        return this.logradouro;
-    }
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
+	public String getCidade() {
+		return cidade;
+	}
 
-    public String getNumero() {
-        return this.numero;
-    }
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public String getComplemento() {
-        return this.complemento;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
+	public String getCep() {
+		return cep;
+	}
 
-    public String getBairro() {
-        return this.bairro;
-    }
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public String getCidade() {
-        return this.cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return this.estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-   public String getCep() {    
-       return this.cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public Usuario getUsuario() {
-        return this.usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
