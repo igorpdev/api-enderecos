@@ -22,4 +22,13 @@ public class UsuarioService {
     return Optional.of(repository.save(usuario));
     }
 
+    public Usuario ListarEnderecos(long idUsuario) {
+        Optional<Usuario> user = repository.findById(idUsuario);
+
+        user.get().getEnderecos();
+        repository.save(user.get());
+
+        return repository.save(user.get());
+    }
+
 }

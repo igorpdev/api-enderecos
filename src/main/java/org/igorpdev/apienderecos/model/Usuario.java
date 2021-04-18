@@ -38,7 +38,7 @@ public class Usuario {
     private String cpf;
 
     @NotNull
-    @JsonFormat(pattern="dd-mm-yyyy")
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date nascimento;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
