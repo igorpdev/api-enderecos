@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.igorpdev.apienderecos.model.Usuario;
 import org.igorpdev.apienderecos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
         Optional<Usuario> user = service.CadastroUsuario(usuario);
         try {
-            return ResponseEntity.ok(user.get());
+            return ResponseEntity.status(HttpStatus.CREATED).body(user.get());
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
