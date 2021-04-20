@@ -38,12 +38,7 @@ public class EnderecoController {
 
     @GetMapping("/usuarios/{idUsuario}")
     public ResponseEntity <Usuario> getAllEnderecosListados(@PathVariable long idUsuario) {
-        try {
             return ResponseEntity.ok(usuarioService.ListarEnderecos(idUsuario));
-            
-        } catch(Exception e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
 }
