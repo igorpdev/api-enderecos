@@ -1,6 +1,8 @@
 package org.igorpdev.apienderecos.controller;
 
 
+import javax.validation.Valid;
+
 import org.igorpdev.apienderecos.model.Endereco;
 import org.igorpdev.apienderecos.model.Usuario;
 import org.igorpdev.apienderecos.repository.EnderecoRepository;
@@ -28,7 +30,7 @@ public class EnderecoController {
     private UsuarioService usuarioService;
 
     @PostMapping("/cadastro")
-	public ResponseEntity<Endereco> post (@RequestBody Endereco endereco) {
+	public ResponseEntity<Endereco> post (@Valid @RequestBody Endereco endereco) {
 		try {
             return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(endereco));
         } catch(Exception e) {

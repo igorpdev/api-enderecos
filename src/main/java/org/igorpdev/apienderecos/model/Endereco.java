@@ -1,13 +1,12 @@
 package org.igorpdev.apienderecos.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,25 +18,25 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idEndereco;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String logradouro;
 	
-	@NotNull
+	@Column(nullable = false)
 	private int numero;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String complemento;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String bairro;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String cidade;
 	
-	@NotNull
+	@Column(nullable = false)
 	private String estado;
 	
-	@NotNull
+	@Column(nullable = false)
 	@JsonFormat(pattern = "00000-000")
 	private String cep;
 	

@@ -2,6 +2,8 @@ package org.igorpdev.apienderecos.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.igorpdev.apienderecos.model.Usuario;
 import org.igorpdev.apienderecos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class UsuarioController {
     private UsuarioService service;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Usuario> post(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuario) {
         Optional<Usuario> user = service.CadastroUsuario(usuario);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(user.get());
