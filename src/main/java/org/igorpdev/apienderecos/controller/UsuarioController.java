@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.igorpdev.apienderecos.dto.UsuarioDTO;
+import org.igorpdev.apienderecos.dto.UsuarioRespostaDTO;
 import org.igorpdev.apienderecos.model.Usuario;
 import org.igorpdev.apienderecos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,10 @@ public class UsuarioController {
     private UsuarioService service;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<Usuario> post(@Valid @RequestBody Usuario usuario) {
-        Optional<Usuario> user = service.CadastroUsuario(usuario);
+    public ResponseEntity<UsuarioRespostaDTO> post(@Valid @RequestBody UsuarioDTO dto) {
+        Usuario usuario = service.CadastroUsuario(dto.transformaParaObjeto());
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(user.get());
+            return new ResponseEntity<>(UsuarioRespostaDTO.transformaEmDTO(usuario), HttpStatus.CREATED);
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

@@ -15,9 +15,9 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository repository;
 
-    public Optional<Usuario> CadastroUsuario(Usuario usuario) {
+    public Usuario CadastroUsuario(Usuario usuario) {
         try {
-            return Optional.of(repository.save(usuario));
+            return repository.save(usuario);
         } catch(Exception e) {
             throw new UserExistsException();
         }
