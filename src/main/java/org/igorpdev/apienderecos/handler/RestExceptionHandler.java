@@ -12,28 +12,32 @@ import org.igorpdev.apienderecos.error.ResourceNotFoundException;
 import org.igorpdev.apienderecos.error.UserExistsDetails;
 import org.igorpdev.apienderecos.error.UserExistsException;
 import org.igorpdev.apienderecos.error.ValidationErrorDetails;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class RestExceptionHandler {
+public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> defaultErrorException(Exception exception) {
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetails eDetails = ErrorDetails.Builder
             .newBuilder()
             .timestamp(new Date().getTime())
-            .status(HttpStatus.BAD_REQUEST.value())
-            .title("Erro")
-            .detail(exception.getMessage())
-            .developerMessage(exception.getClass().getName())
+            .status(status.value())
+            .title("Internal Exception")
+            .detail(ex.getMessage())
+            .developerMessage(ex.getClass().getName())
             .build();
-        return new ResponseEntity<> (eDetails, HttpStatus.BAD_REQUEST);
-    }
+        return new ResponseEntity<> (eDetails, headers, status);
+	}
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handlerResourceNotFoundExeception(ResourceNotFoundException rnfException) {
@@ -61,10 +65,11 @@ public class RestExceptionHandler {
         return new ResponseEntity<> (ueDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handlerMethodArgumentNotValidException(MethodArgumentNotValidException maNotValidException) {
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+        MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         
-        List<FieldError> fieldErrors = maNotValidException.getBindingResult().getFieldErrors();
+        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
         String fields = fieldErrors.stream().map(FieldError::getField).collect(Collectors.joining(", "));
         String fieldMessages = fieldErrors.stream().map(FieldError::getDefaultMessage).collect(Collectors.joining(", "));
 
@@ -73,8 +78,8 @@ public class RestExceptionHandler {
             .timestamp(new Date().getTime())
             .status(HttpStatus.BAD_REQUEST.value())
             .title("Campos inválidos")
-            .detail(maNotValidException.getMessage())
-            .developerMessage(maNotValidException.getClass().getName())
+            .detail(ex.getMessage())
+            .developerMessage(ex.getClass().getName())
             .field(fields)
             .fieldMessage(fieldMessages)
             .build();
@@ -93,4 +98,5 @@ public class RestExceptionHandler {
             .build();
         return new ResponseEntity<> (eDetails, HttpStatus.BAD_REQUEST);
     } 
+
 }
