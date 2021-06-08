@@ -2,6 +2,8 @@ package org.igorpdev.apienderecos.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import org.igorpdev.apienderecos.model.Usuario;
 
 public class UsuarioRespostaDTO {
@@ -12,6 +14,7 @@ public class UsuarioRespostaDTO {
 
     private String cpf;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
     private Date nascimento;
 
     private UsuarioRespostaDTO(String nome, String email, String cpf, Date nascimento) {
