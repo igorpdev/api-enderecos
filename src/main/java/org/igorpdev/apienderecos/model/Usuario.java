@@ -43,7 +43,17 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
     private List<Endereco> enderecos;
- 
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String cpf, Date nascimento) {
+        this.nome = nome;
+        this.email = email;
+        this.cpf = cpf;
+        this.nascimento = nascimento;
+    }
+
     public long getIdUsuario() {
         return this.idUsuario;
     }
