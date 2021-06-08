@@ -24,8 +24,8 @@ public class UsuarioService {
         
     }
 
-    public Usuario ListarEnderecos(long idUsuario) throws ResourceNotFoundException {
-        Optional<Usuario> user = repository.findById(idUsuario);
+    public Usuario ListarEnderecos(String cpfUsuario) throws ResourceNotFoundException {
+        Optional<Usuario> user = repository.findByCpf(cpfUsuario);
 
         if(user.isPresent() == false) {
             throw new ResourceNotFoundException();

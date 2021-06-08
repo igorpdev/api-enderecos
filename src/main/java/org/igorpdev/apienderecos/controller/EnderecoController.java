@@ -38,9 +38,9 @@ public class EnderecoController {
         }
 	}
 
-    @GetMapping("/usuarios/{idUsuario}")
-    public ResponseEntity <Usuario> getAllEnderecosListados(@PathVariable long idUsuario) {
-            return ResponseEntity.ok(usuarioService.ListarEnderecos(idUsuario));
+    @GetMapping("/usuarios/{cpf}")
+    public ResponseEntity <Usuario> getAllEnderecosListados(@PathVariable String cpf) {
+            return ResponseEntity.ok(usuarioService.ListarEnderecos(cpf));
     }
 
 }
