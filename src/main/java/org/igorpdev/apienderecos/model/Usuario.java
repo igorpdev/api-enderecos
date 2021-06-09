@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.igorpdev.apienderecos.dto.UsuarioDTO;
+import org.springframework.http.ResponseEntity;
 
 @Entity
 @Table(name = "tb_usuario")
@@ -43,6 +45,15 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("usuario")
     private List<Endereco> enderecos;
+
+    public UsuarioDTO toDto(ResponseEntity<Usuario> usuario) {
+        UsuarioDTO uDto = new UsuarioDTO();
+        uDto.setNome(this.nome);
+        uDto.setEmail(this.email);
+        uDto.setCpf(this.cpf);
+        uDto.setNascimento(this.nascimento);
+        return uDto;
+    }
  
     public long getIdUsuario() {
         return this.idUsuario;
