@@ -1,11 +1,14 @@
 package org.igorpdev.apienderecos.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.igorpdev.apienderecos.model.Endereco;
 
 public class UsuarioDTO {
     
@@ -25,6 +28,16 @@ public class UsuarioDTO {
     @NotBlank
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Date nascimento;
+
+    private List<Endereco> enderecos;
+
+    public List<Endereco> getEnderecos() {
+        return this.enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
 
     public String getNome() {
         return this.nome;

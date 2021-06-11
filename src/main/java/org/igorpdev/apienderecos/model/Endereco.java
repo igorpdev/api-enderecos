@@ -10,6 +10,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.igorpdev.apienderecos.dto.EnderecoDTO;
+import org.springframework.http.ResponseEntity;
+
 @Entity
 @Table(name = "tb_endereco")
 public class Endereco {
@@ -43,6 +46,19 @@ public class Endereco {
 	@ManyToOne
 	@JsonIgnoreProperties("usuario")
 	private Usuario usuario;
+
+	public EnderecoDTO toDto(ResponseEntity<Endereco> enderec0) {
+        EnderecoDTO eDto = new EnderecoDTO();
+        eDto.setLogradouro(this.logradouro);
+        eDto.setNumero(this.numero);
+		eDto.setComplemento(this.complemento);
+		eDto.setBairro(this.bairro);
+		eDto.setCidade(this.cidade);
+		eDto.setEstado(this.estado);
+		eDto.setCep(this.cep);
+		eDto.setUsuario(this.usuario);
+        return eDto;
+    }
 
 	public long getIdEndereco() {
 		return idEndereco;

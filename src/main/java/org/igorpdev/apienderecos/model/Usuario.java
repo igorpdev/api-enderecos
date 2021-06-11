@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -27,18 +29,20 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idUsuario;
     
-    @Column(nullable = false)
+    @NotNull
     private String nome;
 
     @Email
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotNull
     private String email;
 
     @CPF
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
+    @NotNull
     private String cpf;
 
-    @Column(nullable = false)
+    @NotNull
     @JsonFormat(pattern="dd-MM-yyyy")
     private Date nascimento;
 
@@ -52,6 +56,7 @@ public class Usuario {
         uDto.setEmail(this.email);
         uDto.setCpf(this.cpf);
         uDto.setNascimento(this.nascimento);
+        uDto.setEnderecos(this.enderecos);
         return uDto;
     }
  

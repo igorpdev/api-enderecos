@@ -1,23 +1,43 @@
 package org.igorpdev.apienderecos.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.igorpdev.apienderecos.model.Usuario;
 
 public class EnderecoDTO {
     
+    @NotNull
     private String logradouro;
 	
-	private int numero;
+	@NotNull
+    private int numero;
 	
-	private String complemento;
+	@NotNull
+    private String complemento;
 	
-	private String bairro;
+	@NotNull
+    private String bairro;
 	
-	private String cidade;
+	@NotNull
+    private String cidade;
 	
-	private String estado;
+	@NotNull
+    private String estado;
 	
 	@JsonFormat(pattern = "00000-000")
+    @NotNull
 	private String cep;
+
+	private Usuario usuario;
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public String getLogradouro() {
         return this.logradouro;
