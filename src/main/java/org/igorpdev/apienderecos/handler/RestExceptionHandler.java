@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
-import org.igorpdev.apienderecos.error.ErrorDetails;
+import org.igorpdev.apienderecos.error.DefaultException;
+import org.igorpdev.apienderecos.error.DefaultExceptionDetails;
 import org.igorpdev.apienderecos.error.ResourceNotFoundDetails;
 import org.igorpdev.apienderecos.error.ResourceNotFoundException;
 import org.igorpdev.apienderecos.error.UserExistsDetails;
@@ -26,9 +27,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @Override
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ErrorDetails eDetails = ErrorDetails.Builder
+    @ExceptionHandler(DefaultException.class)
+    public ResponseEntity<Object> handleExceptionInternal(Exception ex, @Nullable Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        DefaultExceptionDetails eDetails = DefaultExceptionDetails.Builder
             .newBuilder()
             .timestamp(new Date().getTime())
             .status(status.value())
@@ -66,7 +67,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+    public ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
@@ -88,7 +89,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<?> handlerInvalidFormatException(InvalidFormatException invalidFormatException) {
-        ErrorDetails eDetails = ErrorDetails.Builder
+        DefaultExceptionDetails eDetails = DefaultExceptionDetails.Builder
             .newBuilder()
             .timestamp(new Date().getTime())
             .status(HttpStatus.BAD_REQUEST.value())

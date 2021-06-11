@@ -1,6 +1,6 @@
 package org.igorpdev.apienderecos.error;
 
-public class ErrorDetails {
+public class DefaultExceptionDetails {
     private String title;
     private int status;
     private String detail;
@@ -87,8 +87,8 @@ public class ErrorDetails {
             return this;
         }
 
-        public ErrorDetails build() {
-            ErrorDetails errorDetails = new ErrorDetails();
+        public DefaultExceptionDetails build() {
+            DefaultExceptionDetails errorDetails = new DefaultExceptionDetails();
             errorDetails.setTitle(title);
             errorDetails.setStatus(status);
             errorDetails.setDetail(detail);

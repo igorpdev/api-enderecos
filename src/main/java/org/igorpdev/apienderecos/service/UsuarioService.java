@@ -21,7 +21,6 @@ public class UsuarioService {
         } catch(Exception e) {
             throw new UserExistsException();
         }
-        
     }
 
     public Usuario ListarEnderecos(String cpfUsuario) throws ResourceNotFoundException {

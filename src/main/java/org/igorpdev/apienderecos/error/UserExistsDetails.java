@@ -1,6 +1,6 @@
 package org.igorpdev.apienderecos.error;
 
-public class UserExistsDetails extends ErrorDetails {
+public class UserExistsDetails extends DefaultExceptionDetails {
     public static final class Builder{
         private String title;
         private int status;

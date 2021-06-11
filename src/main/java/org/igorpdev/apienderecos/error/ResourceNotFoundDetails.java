@@ -1,6 +1,6 @@
 package org.igorpdev.apienderecos.error;
 
-public class ResourceNotFoundDetails extends ErrorDetails {
+public class ResourceNotFoundDetails extends DefaultExceptionDetails {
 
     public static final class Builder {
         private String title;

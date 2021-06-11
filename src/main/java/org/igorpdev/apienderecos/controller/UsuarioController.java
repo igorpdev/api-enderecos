@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.igorpdev.apienderecos.dto.UsuarioDTO;
+import org.igorpdev.apienderecos.error.UserExistsException;
 import org.igorpdev.apienderecos.model.Usuario;
 import org.igorpdev.apienderecos.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,11 @@ public class UsuarioController {
     public UsuarioDTO post(@Valid @RequestBody Usuario usuario) {
         Optional<Usuario> user = service.CadastroUsuario(usuario);
 
-        return usuario.toDto(ResponseEntity.status(HttpStatus.CREATED).body(user.get()));
+        if(user.isPresent() == false) {
+            return usuario.toDto(ResponseEntity.status(HttpStatus.CREATED).body(user.get()));
+        } else {
+            throw new UserExistsException();
+        }
     }
 
 }

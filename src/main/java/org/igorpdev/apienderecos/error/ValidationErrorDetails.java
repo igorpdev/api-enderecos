@@ -1,6 +1,6 @@
 package org.igorpdev.apienderecos.error;
 
-public class ValidationErrorDetails extends ErrorDetails {
+public class ValidationErrorDetails extends DefaultExceptionDetails {
     
     private String field;
     private String fieldMessage;
